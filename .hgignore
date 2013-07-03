@@ -1,0 +1,7 @@
+syntax: glob
+
+.build-*
+lib
+src
+
+*-stamp

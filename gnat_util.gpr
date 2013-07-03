@@ -1,0 +1,39 @@
+--  Copyright Simon Wright <simon@pushface.org>
+
+--  This file is part of the version of GNAT_Util created at
+--  Sourceforge by Simon Wright and intended to allow the building of
+--  tools provided by AdaCore in their GPL distributions.
+
+--  GNAT_Util is free software; you can redistribute it and/or modify
+--  it under the terms of the GNU General Public License as published
+--  by the Free Software Foundation; either version 3, or (at your
+--  option) any later version.
+
+--  GNAT_Util is distributed in the hope that it will be useful, but
+--  WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+
+--  You should have received a copy of the GNU General Public License
+--  along with GNAT_Util; see the file COPYING3.  If not see
+--  <http://www.gnu.org/licenses/>.
+
+project Gnat_Util is
+
+   type Library_T is ("static", "relocatable");
+   Library_Type : Library_T := external ("LIBRARY_TYPE", "static");
+
+   for Library_Name use "gnat_util";
+   for Library_Kind use Library_Type;
+   for Object_Dir use ".build-" & Library_Type;
+   for Library_Dir use "lib/" & Library_Type;
+
+   for Languages use ("Ada", "C");
+
+   for Source_Dirs use ("src");
+
+   package Compiler is
+      for Switches ("ada") use ("-O2");
+   end Compiler;
+
+end Gnat_Util;
