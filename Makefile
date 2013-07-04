@@ -68,6 +68,17 @@ src-stamp: compiler_files
 	cp prefix.c src/
 	touch src-stamp
 
+prefix ?= $(realpath $(dir $(shell which gnatls))/..)
+
+install: all
+	gprinstall				\
+	  -P gnat_util.gpr			\
+	  --prefix=$(prefix)			\
+	  --mode=dev				\
+	  --project-subdir=lib/gnat		\
+	  -f					\
+	  -p
+
 clean:
 	gnatclean -P gnat_util.gpr
 	rm -rf src .build-* lib
