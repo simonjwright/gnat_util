@@ -18,12 +18,17 @@
 # along with GNAT_Util; see the file COPYING3.  If not see
 # <http://www.gnu.org/licenses/>.
 
+# THESE TWO VARIABLES NEED TO BE CONFIGURED!
 GCC_SRC_BASE ?= $(HOME)/tmp/gcc-4.8.0
 GCC_BLD_BASE ?= $(HOME)/tmp/gcc-build
 
 GNATMAKE ?= gnatmake
 
-all: lib-static-stamp lib-relocatable-stamp
+all: lib-static-stamp
+# Not going to build the relocatable library by default: there might
+# be problems on Linux, and anyway all the tools are built
+# statically. This does mean that GNATColl needs to be configured with
+# --disable-shared.
 
 lib-static-stamp: src-stamp gnat_util.gpr
 ifeq ($(GNATMAKE),gnatmake)
