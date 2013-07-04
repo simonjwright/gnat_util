@@ -33,8 +33,8 @@ all: lib-static-stamp
 lib-static-stamp: src-stamp gnat_util.gpr
 ifeq ($(GNATMAKE),gnatmake)
 	[ -d .build-static ] || mkdir .build-static
-	cd src;							\
-	for c in *.c; do					\
+	cd src;								\
+	for c in *.c; do						\
 	  gcc -c -O2 $$c -o ../.build-static/`basename $$c .c`.o;	\
 	done
 endif
