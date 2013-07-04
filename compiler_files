@@ -120,7 +120,6 @@ sinput.adb
 sinput.ads
 snames.adb
 snames.ads
-snames.h
 stand.adb
 stand.ads
 stringt.adb
