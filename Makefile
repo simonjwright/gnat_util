@@ -83,3 +83,26 @@ clean:
 	gnatclean -P gnat_util.gpr
 	rm -rf src .build-* lib
 	rm *-stamp
+
+# Distribution construction.
+
+# Create the current date, in the form yyyymmdd.
+DATE ?= $(shell date +%Y%m%d)
+
+# Files to copy to the distribution
+FILES = COPYING3 README Makefile gnat_util.gpr prefix.c
+
+# Distribution directory - eg gnat_util-20130705
+DISTDIR = gnat_util-$(DATE)
+
+dist: $(DISTDIR).tar.gz
+
+$(DISTDIR).tar.gz: $(DISTDIR)
+	tar zcvf $@ $<
+
+$(DISTDIR):
+	-rm -rf $@
+	mkdir $@
+	cp $(FILES) $@/
+
+.PHONY: all clean dist install $(DISTDIR)
