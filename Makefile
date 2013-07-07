@@ -96,13 +96,13 @@ clean:
 # Distribution construction.
 
 # Create the current date, in the form yyyymmdd.
-DATE ?= $(shell date +%Y%m%d)
+RELEASE ?= $(shell date +%Y%m%d)
 
 # Files to copy to the distribution
-FILES = COPYING3 README Makefile gnat_util.gpr prefix.c
+FILES = COPYING3 README Makefile compiler_files gnat_util.gpr prefix.c
 
 # Distribution directory - eg gnat_util-20130705
-DISTDIR = gnat_util-$(DATE)
+DISTDIR = gnat_util-$(RELEASE)
 
 dist: $(DISTDIR).tar.gz
 
