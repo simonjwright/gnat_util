@@ -19,37 +19,33 @@
 # <http://www.gnu.org/licenses/>.
 
 # THESE TWO VARIABLES NEED TO BE CONFIGURED!
-GCC_SRC_BASE ?= $(HOME)/tmp/gcc-4.8.0
-GCC_BLD_BASE ?= $(HOME)/tmp/gcc-build
+GCC_SRC_BASE ?= $(HOME)/tmp/gcc-4.8.1
+GCC_BLD_BASE ?= $(HOME)/tmp/gcc-build-4.8.1
 
-GNATMAKE ?= gnatmake
+GPRBUILD ?= gprbuild
 
-all: lib-static-stamp
-# Not going to build the relocatable library by default: there might
-# be problems on Linux, and anyway all the tools are built
-# statically. This does mean that GNATColl needs to be configured with
-# --disable-shared.
+all: lib-static-stamp lib-relocatable-stamp
 
 lib-static-stamp: src-stamp gnat_util.gpr
-ifeq ($(GNATMAKE),gnatmake)
+ifeq ($(GPRBUILD),gnatmake)
 	[ -d .build-static ] || mkdir .build-static
 	cd src;								\
 	for c in *.c; do						\
 	  gcc -c -O2 $$c -o ../.build-static/`basename $$c .c`.o;	\
 	done
 endif
-	$(GNATMAKE) -p -P gnat_util.gpr -XLIBRARY_TYPE=static
+	$(GPRBUILD) -p -P gnat_util.gpr -XLIBRARY_TYPE=static
 	touch lib-static-stamp
 
 lib-relocatable-stamp: src-stamp gnat_util.gpr
-ifeq ($(GNATMAKE),gnatmake)
+ifeq ($(GPRBUILD),gnatmake)
 	[ -d .build-relocatable ] || mkdir .build-relocatable
 	cd src;								     \
 	for c in *.c; do						     \
 	  gcc -c -O2 -fPIC $$c -o ../.build-relocatable/`basename $$c .c`.o; \
 	done
 endif
-	$(GNATMAKE) -p -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
+	$(GPRBUILD) -p -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
 	touch lib-relocatable-stamp
 
 src-stamp: compiler_files
@@ -76,6 +72,19 @@ install: all
 	  --prefix=$(prefix)			\
 	  --mode=dev				\
 	  --project-subdir=lib/gnat		\
+	  --build-var=LIBRARY_TYPE		\
+	  --build-name=static			\
+	  -XLIBRARY_TYPE=static			\
+	  -f					\
+	  -p
+	gprinstall				\
+	  -P gnat_util.gpr			\
+	  --prefix=$(prefix)			\
+	  --mode=dev				\
+	  --project-subdir=lib/gnat		\
+	  --build-var=LIBRARY_TYPE		\
+	  --build-name=relocatable		\
+	  -XLIBRARY_TYPE=relocatable		\
 	  -f					\
 	  -p
 

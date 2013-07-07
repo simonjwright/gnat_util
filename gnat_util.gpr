@@ -21,8 +21,7 @@
 project Gnat_Util is
 
    type Library_T is ("static", "relocatable");
-   --  Library_Type : Library_T := external ("LIBRARY_TYPE", "static");
-   Library_Type : Library_T := "static";
+   Library_Type : Library_T := external ("LIBRARY_TYPE", "static");
 
    for Library_Name use "gnat_util";
    for Library_Kind use Library_Type;
