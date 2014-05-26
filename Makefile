@@ -48,10 +48,26 @@ endif
 	$(GPRBUILD) -p -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
 	touch lib-relocatable-stamp
 
+# Some of the sources are platform-specific; for example, the body of
+# mlib-tgt-specific.ads for Darwin is found in the source tree as
+# mlib-tgt-specific-darwin.adb. These sources are copied to the build
+# tree with the expected name, in
+#
+# o gcc/ada/bldtools (used for generating some compiler sources, not
+#   needed),
+# o gcc/ada/rts (actually the complete RTS; we don't need any of
+#   these, since this library is used by an already-installed
+#   compiler),
+# o gcc/ada/tools, and
+# o gcc/ada.
+#
+# Other sources come from the source tree.
 src-stamp: compiler_files
 	[ -d src ] || mkdir src
 	for s in `cat compiler_files`; do			\
-	    if   [ -f $(GCC_BLD_BASE)/gcc/ada/$$s ]; then	\
+	    if   [ -f $(GCC_BLD_BASE)/gcc/ada/tools/$$s ]; then	\
+	        cp -p $(GCC_BLD_BASE)/gcc/ada/tools/$$s src/;	\
+	    elif [ -f $(GCC_BLD_BASE)/gcc/ada/$$s ]; then	\
 	        cp -p $(GCC_BLD_BASE)/gcc/ada/$$s src/;		\
 	    elif [ -f $(GCC_SRC_BASE)/gcc/ada/$$s ]; then	\
 	        cp -p $(GCC_SRC_BASE)/gcc/ada/$$s src/;		\
