@@ -15,7 +15,7 @@ This project provides such a library.
 The code is released under GPL V3.0 without any Runtime Exception,
 because the compiler components are themselves pure GPL.
 
-If you've just build the compiler, it'd be normal to build the tools
+If you've just built the compiler, it'd be normal to build the tools
 to live with the compiler (that way you can have different versions of
 the compiler on your system and switch between them by changing the
 PATH).
