@@ -42,4 +42,5 @@ The order of building the tools is important.
 
 (5) GNATColl; build and install.
 
-(6) ASIS; build and install.
+(6) ASIS; build (make all tools) and install (make install
+    install-tools).
