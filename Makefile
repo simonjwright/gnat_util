@@ -23,6 +23,7 @@ GCC_SRC_BASE ?= $(HOME)/tmp/gcc-5.1.0
 GCC_BLD_BASE ?= $(HOME)/tmp/gcc-5.1.0-build
 
 GPRBUILD ?= gprbuild
+GPRCLEAN ?= gprclean
 
 all: lib-static-stamp lib-relocatable-stamp
 
@@ -105,7 +106,7 @@ install: all
 	  -p
 
 clean:
-	gnatclean -P gnat_util.gpr
+	$(GPRCLEAN) -P gnat_util.gpr
 	rm -rf src .build-* lib
 	rm *-stamp
 
