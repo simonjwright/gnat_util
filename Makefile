@@ -86,6 +86,7 @@ prefix ?= $(realpath $(dir $(shell which gnatls))/..)
 install: all
 	gprinstall				\
 	  -P gnat_util.gpr			\
+	  --install-name=gnat_util		\
 	  --prefix=$(prefix)			\
 	  --mode=dev				\
 	  --project-subdir=lib/gnat		\
@@ -96,6 +97,7 @@ install: all
 	  -p
 	gprinstall				\
 	  -P gnat_util.gpr			\
+	  --install-name=gnat_util		\
 	  --prefix=$(prefix)			\
 	  --mode=dev				\
 	  --project-subdir=lib/gnat		\
@@ -106,7 +108,8 @@ install: all
 	  -p
 
 clean:
-	$(GPRCLEAN) -P gnat_util.gpr
+	-$(GPRCLEAN) -P gnat_util.gpr -XLIBRARY_TYPE=static
+	-$(GPRCLEAN) -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
 	rm -rf src .build-* lib
 	rm *-stamp
 
