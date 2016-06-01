@@ -19,8 +19,8 @@
 # <http://www.gnu.org/licenses/>.
 
 # THESE TWO VARIABLES NEED TO BE CONFIGURED!
-GCC_SRC_BASE ?= $(HOME)/tmp/gcc-5.2.0
-GCC_BLD_BASE ?= $(HOME)/tmp/gcc-5.2.0-build
+GCC_SRC_BASE ?= $(HOME)/tmp/gcc-6.1.0
+GCC_BLD_BASE ?= $(HOME)/tmp/gcc-6.1.0-build
 
 GPRBUILD ?= gprbuild
 GPRCLEAN ?= gprclean
