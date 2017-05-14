@@ -18,35 +18,24 @@
 # along with GNAT_Util; see the file COPYING3.  If not see
 # <http://www.gnu.org/licenses/>.
 
-# THESE TWO VARIABLES NEED TO BE CONFIGURED!
-GCC_SRC_BASE ?= $(HOME)/tmp/gcc-6.1.0
-GCC_BLD_BASE ?= $(HOME)/tmp/gcc-6.1.0-build
+# THESE VARIABLES NEED TO BE CONFIGURED!
+BASE ?= $(HOME)
+GCC_SRC_BASE ?= $(BASE)/tmp/gcc-7.1.0
+GCC_BLD_BASE ?= $(BASE)/tmp/gcc-7.1.0-build
 
-GPRBUILD ?= gprbuild
+GPRBUILD = gprbuild
+GPRBUILD_OPTIONS =
+BUILDER =$(GPRBUILD) $(GPRBUILD_OPTIONS)
 GPRCLEAN ?= gprclean
 
 all: lib-static-stamp lib-relocatable-stamp
 
 lib-static-stamp: src-stamp gnat_util.gpr
-ifeq ($(GPRBUILD),gnatmake)
-	[ -d .build-static ] || mkdir .build-static
-	cd src;								\
-	for c in *.c; do						\
-	  gcc -c -O2 $$c -o ../.build-static/`basename $$c .c`.o;	\
-	done
-endif
-	$(GPRBUILD) -p -P gnat_util.gpr -XLIBRARY_TYPE=static
+	$(BUILDER) -p -P gnat_util.gpr -XLIBRARY_TYPE=static
 	touch lib-static-stamp
 
 lib-relocatable-stamp: src-stamp gnat_util.gpr
-ifeq ($(GPRBUILD),gnatmake)
-	[ -d .build-relocatable ] || mkdir .build-relocatable
-	cd src;								     \
-	for c in *.c; do						     \
-	  gcc -c -O2 -fPIC $$c -o ../.build-relocatable/`basename $$c .c`.o; \
-	done
-endif
-	$(GPRBUILD) -p -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
+	$(BUILDER) -p -P gnat_util.gpr -XLIBRARY_TYPE=relocatable
 	touch lib-relocatable-stamp
 
 # Some of the sources are platform-specific; for example, the body of
