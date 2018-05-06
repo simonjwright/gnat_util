@@ -20,8 +20,9 @@
 
 # THESE VARIABLES NEED TO BE CONFIGURED!
 BASE ?= $(HOME)
-GCC_SRC_BASE ?= $(BASE)/tmp/gcc-7.1.0
-GCC_BLD_BASE ?= $(BASE)/tmp/gcc-7.1.0-build
+RELEASE ?= 8.1.0
+GCC_SRC_BASE ?= $(BASE)/tmp/gcc-$(RELEASE)
+GCC_BLD_BASE ?= $(BASE)/tmp/gcc-$(RELEASE)-build
 
 GPRBUILD = gprbuild
 GPRBUILD_OPTIONS =
