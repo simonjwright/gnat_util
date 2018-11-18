@@ -22,25 +22,25 @@ PATH).
 
 The order of building the tools is important.
 
-(0) Install the new compiler and set your PATH so that its bin/
-    directory is first: e.g., PATH=/opt/gcc-4.8.1/bin:$PATH
+1. Install the new compiler and set your `PATH` so that its `bin/`
+   directory is first: e.g., `PATH=/opt/gcc-4.8.1/bin:$PATH`
 
-(1) XML/Ada; build and install.
+1. XML/Ada; build and install.
 
-(2) GPRBuild; build and install.
+1. GPRBuild; build and install.
 
-(2a) If you're on Darwin, rebuild XML/Ada using the new gprbuild (make
-     clean; make GNATMAKE=gprbuild) and reinstall. This is so that the
-     relocatable libraries are correctly built.
+1. If you're on Darwin, rebuild XML/Ada using the new gprbuild (`make
+   clean; make gprbuild`) and reinstall. This is so that the
+   relocatable libraries are correctly built.
 
-(3) AUnit; build and install.
+1. AUnit; build and install.
 
-(4) This library; edit the Makefile, build and install. The Makefile
-    contains two variable definitions (GCC_SRC_BASE and GCC_BLD_BASE)
-    which must be set to match the just-built compiler's source and
-    build directories respectively.
+1. This library; edit the Makefile, build and install. The Makefile
+   contains two variable definitions (`GCC_SRC_BASE` and
+   `GCC_BLD_BASE`) which must be set to match the just-built
+   compiler's source and build directories respectively.
 
-(5) GNATColl; build and install.
+1. GNATColl; build and install.
 
-(6) ASIS; build (make all tools) and install (make install
-    install-tools).
+1. ASIS; build (make all tools) and install (`make install
+   install-tools`).
